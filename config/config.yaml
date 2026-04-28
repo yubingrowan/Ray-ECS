@@ -1,0 +1,59 @@
+# Ray GPU Cluster Configuration
+
+# Ray集群配置
+ray:
+  head:
+    ip: "172.31.84.221"  # Head节点私网IP
+    port: 6379           # GCS端口
+    dashboard_port: 8265 # Dashboard端口
+    num_gpus: 0          # Head节点GPU数量（可选）
+  
+  workers:
+    - ip: "172.31.84.222"  # Worker节点1私网IP
+      num_gpus: 1          # GPU数量
+    # 添加更多worker节点
+    # - ip: "172.31.84.223"
+    #   num_gpus: 1
+
+# vLLM配置
+vllm:
+  model: "Qwen/Qwen2.5-0.5B-Instruct"  # 模型名称
+  trust_remote_code: true               # 信任远程代码
+  gpu_memory_utilization: 0.8           # GPU显存利用率
+  max_model_len: 2048                   # 最大模型长度
+  tensor_parallel_size: 1               # 张量并行大小
+
+# 测试配置
+test:
+  model: "Qwen/Qwen2.5-0.5B-Instruct"  # 测试模型
+  num_requests: 10                      # 请求数量
+  max_tokens: 50                        # 最大输出token数
+  temperature: 0.7                      # 温度参数
+  top_p: 0.9                            # Top-p采样
+
+# Ray Serve配置
+serve:
+  autoscaling:
+    min_replicas: 1      # 最小副本数
+    max_replicas: 4      # 最大副本数
+    target_num_ongoing_requests_per_replica: 5  # 目标请求数
+  health_check:
+    interval: 10        # 健康检查间隔（秒）
+    timeout: 30         # 健康检查超时（秒）
+
+# 日志配置
+logging:
+  level: "INFO"          # 日志级别
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "/tmp/ray-gpu-cluster.log"  # 日志文件路径
+
+# 监控配置
+monitoring:
+  enable_dashboard: true    # 启用Dashboard
+  enable_metrics: true      # 启用指标收集
+  metrics_port: 8080        # 指标端口
+
+# 安全配置
+security:
+  enable_tls: false         # 启用TLS
+  enable_auth: false        # 启用认证

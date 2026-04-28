@@ -1,0 +1,25 @@
+# Ray GPU Cluster Requirements
+
+# Core dependencies
+ray[all]==2.9.0
+vllm==0.3.0
+torch==2.1.0
+transformers==4.36.0
+
+# Model management
+modelscope==1.11.0
+
+# Utilities
+pyyaml==6.0.1
+requests==2.31.0
+numpy==1.24.3
+
+# Logging
+python-json-logger==2.0.7
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Optional: Monitoring
+prometheus-client==0.19.0
